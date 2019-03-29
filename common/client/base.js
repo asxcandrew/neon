@@ -1,0 +1,42 @@
+class BaseResource {
+  constructor (base) {
+    this.base = base;
+  }
+  query(params) {
+    let url = `/${this.base}`;
+    return this.api.get(url, params);
+  }
+  get(id, options, append) {
+    
+    let url = `/${this.base}`;
+    if (id !== undefined) {
+      url += `/${id}`;
+    }
+    if (append !== undefined) {
+      url += `/${append}`;
+    }
+    return this.api.get(url, options);
+  }
+  delete(id, options) {
+    const url = `/${this.base}/${id}`;
+    return this.api.delete(url, options);
+  }
+  post(options) {
+    const url = `/${this.base}`;
+    return this.api.post(url, options);
+  }
+  put(id, options) {
+    const url = `/${this.base}/${id}`;
+    return this.api.put(url, options);
+  }
+  patch(id, options) {
+    const url = `/${this.base}/${id}`;
+    return this.api.patch(url, options);
+  }
+  with(api){
+    this.api = api;
+    return this
+  }
+}
+
+export { BaseResource };

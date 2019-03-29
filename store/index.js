@@ -1,8 +1,7 @@
 import Vue from 'vue'
 
-import { validFeeds } from '~/common/api'
+import { validFeeds, Client } from '~/common/api'
 import { lazy } from '~/common/utils'
-import { CancelToken } from 'axios'
 
 export default {
   // =================================================
@@ -46,23 +45,21 @@ export default {
       }
 
       return lazy(
-        (items) => {
+        (data) => {
+          let items = (data.payload || [])
           const ids = items.map(item => item.id)
           commit('SET_FEED', { feed, ids, page })
           commit('SET_ITEMS', { items })
         },
-        () =>
-          this.$axios.$get(`/${feed}/${page}.json`, {
-            cancelToken: this.feedCancelSource && this.feedCancelSource.token
-          }),
-        (state.feeds[feed][page] || []).map(id => state.items[id])
+        () =>Client.Feed.with(this.$axios).get(feed, page),
+        () =>(state.feeds[feed][page] || []).map(id => state.items[id])
       )
     },
 
     FETCH_ITEM({ commit, state }, { id }) {
       return lazy(
         item => commit('SET_ITEM', { item }),
-        () => this.$axios.$get(`/item/${id}.json`),
+        () => Client.Item.with(this.$axios).get(id),
         Object.assign({ id, loading: true, comments: [] }, state.items[id])
       )
     },
@@ -70,7 +67,7 @@ export default {
     FETCH_USER({ state, commit }, { id }) {
       return lazy(
         user => commit('SET_USER', { id, user }),
-        () => this.$axios.$get(`/user/${id}.json`),
+        () => Client.User.with(this.$axios).get(id),
         Object.assign({ id, loading: true }, state.users[id])
       )
     }
