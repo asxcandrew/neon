@@ -1,10 +1,10 @@
 <template>
   <li class="news-item">
-    <span class="score">{{ item.points }}</span>
+    <span class="score">{{ item.score }}</span>
     <span class="title">
-      <template v-if="item.url">
-        <a :href="item.url" target="_blank" rel="noopener">{{ item.title }}</a>
-        <span class="host"> ({{ item.url | host }})</span>
+      <template v-if="item.link">
+        <a :href="item.link" target="_blank" rel="noopener">{{ item.title }}</a>
+        <span class="host"> ({{ item.link | host }})</span>
       </template>
       <template v-else>
         <router-link :to="'/item/' + item.id">{{ item.title }}</router-link>
@@ -14,10 +14,10 @@
     <span class="meta">
       <span v-if="item.type !== 'job'" class="by">
         by
-        <router-link :to="'/user/' + item.user">{{ item.user }}</router-link>
+        <router-link :to="'/user/' + item.author">{{ item.author }}</router-link>
       </span>
       <span class="time">
-        {{ item.time | timeAgo }} ago
+        {{ item.created_at | timeAgo }} ago
       </span>
       <span v-if="item.type !== 'job'" class="comments-link">
         |

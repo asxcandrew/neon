@@ -15,7 +15,7 @@ class BaseResource {
     if (append !== undefined) {
       url += `/${append}`;
     }
-    return this.api.get(url, options);
+    return this.api.$get(url, options);
   }
   delete(id, options) {
     const url = `/${this.base}/${id}`;

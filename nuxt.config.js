@@ -28,8 +28,11 @@ export default {
   modules: [ '~/modules' ],
 
   axios: {
-    baseURL: 'https://api.hnpwa.com/v0/'
+    baseURL: '/api/v1/'
   },
+  proxy: [
+    'http://localhost:80/api/v1'
+  ],
 
   plugins: [
     '~/plugins/filters'

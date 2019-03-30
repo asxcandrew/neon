@@ -7,7 +7,7 @@ class FeedResource extends BaseResource {
     if (type !== undefined) {
       url += `/${type}`;
     }
-    return this.api.$get(url, {page: page});
+    return this.api.$get(url, {params: {page: page}});
   }
 };
 

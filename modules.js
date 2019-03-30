@@ -6,4 +6,5 @@ module.exports = function () {
   }
   this.requireModule('@nuxtjs/pwa')
   this.requireModule('@nuxtjs/axios')
+  this.requireModule('@nuxtjs/proxy')
 }

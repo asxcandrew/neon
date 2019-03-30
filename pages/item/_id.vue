@@ -1,29 +1,32 @@
 <template>
   <div class="item-view view">
     <div class="item-view-header">
-      <a :href="item.url" target="_blank">
+      <a :href="item.link" target="_blank">
         <h1 v-text="item.title" />
       </a>
-      <span v-if="item.url" class="host">
-        ({{ item.url | host }})
+      <span v-if="item.link" class="host">
+        ({{ item.link | host }})
       </span>
       <p class="meta">
-        {{ item.points }} points | by
-        <router-link :to="'/user/' + item.user">
-          {{ item.user }}
+        {{ item.score }} points | by
+        <router-link :to="'/user/' + item.author">
+          {{ item.author }}
         </router-link>
-        {{ item.time | timeAgo }} ago
+        {{ item.created_at | timeAgo }} ago
+      </p>
+      <p>
+        {{ item.html_body }}
       </p>
     </div>
     <div class="item-view-comments">
-      <lazy-wrapper :loading="item.loading">
+      <!-- <lazy-wrapper :loading="item.loading">
         <p class="item-view-comments-header">
           {{ item.comments ? item.comments.length + ' comments' : 'No comments yet.' }}
         </p>
         <ul class="comment-children">
           <comment v-for="comment in item.comments" :key="comment.id" :comment="comment" />
         </ul>
-      </lazy-wrapper>
+      </lazy-wrapper> -->
     </div>
   </div>
 </template>
@@ -44,14 +47,14 @@ export default {
 
   computed: {
     id() {
-      return this.$route.query.id
+      return this.$route.params.id
     },
     item() {
       return this.$store.state.items[this.id]
     }
   },
 
-  fetch({ store, query: { id } }) {
+  fetch({ store, params: { id } }) {
     return store.dispatch('FETCH_ITEM', { id })
   }
 }

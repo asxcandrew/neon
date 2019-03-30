@@ -35,14 +35,6 @@ export default {
       if (state.feeds[feed][page] && state.feeds[feed][page].length) {
         prefetch = true
       }
-      if (!prefetch) {
-        if (this.feedCancelSource) {
-          this.feedCancelSource.cancel(
-            'priorotize feed: ' + feed + ' page: ' + page
-          )
-        }
-        this.feedCancelSource = CancelToken.source()
-      }
 
       return lazy(
         (data) => {
@@ -58,7 +50,10 @@ export default {
 
     FETCH_ITEM({ commit, state }, { id }) {
       return lazy(
-        item => commit('SET_ITEM', { item }),
+        (data) => {
+          let item = data.payload;
+          commit('SET_ITEM', { item });
+        },
         () => Client.Item.with(this.$axios).get(id),
         Object.assign({ id, loading: true, comments: [] }, state.items[id])
       )

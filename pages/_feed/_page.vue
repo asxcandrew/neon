@@ -85,12 +85,10 @@ export default {
         return
       }
 
-      // Prefetch next page
       this.$store
         .dispatch('FETCH_FEED', {
           feed: this.feed,
-          page: this.page + 1,
-          prefetch: true
+          page: this.page
         })
         .catch(() => {})
 

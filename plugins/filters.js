@@ -8,7 +8,7 @@ export function host(url) {
 }
 
 export function timeAgo(time) {
-  const between = Date.now() / 1000 - Number(time)
+  const between = (new Date().getTime() - new Date(time).getTime())/1000
   if (between < 3600) {
     return pluralize(~~(between / 60), ' minute')
   } else if (between < 86400) {
