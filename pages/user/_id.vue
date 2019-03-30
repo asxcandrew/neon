@@ -34,7 +34,7 @@ export default {
 
   computed: {
     user() {
-      return this.$store.state.users[this.$route.params.id]
+      return this.$store.state.author.authors[this.$route.params.id]
     }
   },
 

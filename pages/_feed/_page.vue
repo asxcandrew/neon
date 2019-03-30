@@ -50,10 +50,10 @@ export default {
       return feeds[this.feed].pages
     },
     pageData() {
-      return this.$store.state.feeds[this.feed][this.page]
+      return this.$store.state.feed.feeds[this.feed][this.page]
     },
     displayedItems() {
-      return this.pageData.map(id => this.$store.state.items[id])
+      return this.pageData.map(id => this.$store.state.item.items[id])
     },
     loading() {
       return this.displayedItems.length === 0

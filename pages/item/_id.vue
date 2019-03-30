@@ -50,7 +50,7 @@ export default {
       return this.$route.params.id
     },
     item() {
-      return this.$store.state.items[this.id]
+      return this.$store.state.item.items[this.id]
     }
   },
 
