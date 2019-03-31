@@ -25,7 +25,28 @@ export default {
     start_url: '/news?stand_alone=1'
   },
 
-  modules: [ '~/modules' ],
+  modules: [
+    '~/modules',
+    ['nuxt-i18n', {
+      locales: [
+        {
+          code: 'en',
+          iso: 'en-US',
+          name: 'English',
+          file: 'en-US.js'
+        },
+        {
+          code: 'ru',
+          iso: 'ru-RU',
+          name: 'Русский',
+          file: 'ru-RU.js'
+        },
+      ],
+      defaultLocale: 'en',
+      lazy: true,
+      langDir: 'lang/'
+    }]
+  ],
 
   axios: {
     baseURL: '/api/v1/'
