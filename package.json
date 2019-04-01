@@ -30,6 +30,7 @@
   },
   "dependencies": {
     "@nuxtjs/axios": "^5.3.0",
+    "@nuxtjs/vuetify": "^0.5.5",
     "nuxt-edge": "^2.5.0-25848007.21b1b865",
     "nuxt-i18n": "^5.8.5",
     "store": "^2.0.12"

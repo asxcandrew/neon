@@ -5,6 +5,7 @@ module.exports = function () {
     return
   }
   this.requireModule('@nuxtjs/pwa')
+  this.requireModule('@nuxtjs/vuetify')
   this.requireModule('@nuxtjs/axios')
   this.requireModule('@nuxtjs/proxy')
 }

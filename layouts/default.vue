@@ -11,13 +11,16 @@
       </nav>
     </header>
     <nuxt nuxt-child-key="none" role="main" />
+    <common-footer></common-footer>
   </div>
 </template>
 
 <script>
 import { feeds } from '~/common/api'
+import CommonFooter from '~/components/footer'
 
 export default {
+  components: { CommonFooter },
   head() {
     const host = process.server
       ? this.$ssrContext.req.headers.host
