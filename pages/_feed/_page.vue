@@ -28,6 +28,10 @@ export default {
     LazyWrapper
   },
 
+  meta: {
+    public: true
+  },
+
   validate({ params: { feed } }) {
     return validFeeds.includes(feed)
   },

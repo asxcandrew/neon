@@ -1,5 +1,6 @@
 import store from 'store';
 import { Client } from '~/common/api';
+import { lazy } from '~/common/utils';
 
 const state = () => {
   return {
@@ -28,32 +29,34 @@ const mutations = {
 };
 
 const actions = {
-  SIGN_IN({ commit, dispatch }, form) {
+  SIGN_IN({ commit }, form) {
     return lazy(
-      res => {
-        commit(CHANGE_SESSION,{ token: res.data.token, token_expiration: Date.parse(res.data.expire), user: res.data.user })
+      (res) => {
+        let data = res.payload;
+        commit('CHANGE_SESSION',{ token: data.token, token_expiration: Date.parse(data.expire), user: data.user })
       },
       () => {
-        Client.Auth.signin({
-            email: form.email.trim(),
-            password: form.password.trim(),
-          })
+        return Client.Auth.with(this.$axios).login(
+          form.email,
+          form.password
+        );
       }
     )
   },
   SIGN_UP({ commit }, form ) {
     return lazy(
       (res) => {
-        commit(CHANGE_SESSION,
-          { token: res.data.token, token_expiration: Date.parse(res.data.expire), user: res.data.user }
+        let data = res.payload;
+        commit('CHANGE_SESSION',
+          { token: data.token, token_expiration: Date.parse(data.expire), user: data.user }
         );
       },
-      () => Client.Auth.signup(form)
+      () => Client.Auth.with(this.$axios).register(form)
     )
   },
   SIGN_OUT({ commit }) {
     return (async () => {
-      commit(DESTROY_SESSION);
+      commit('DESTROY_SESSION');
     })();
   },
 };

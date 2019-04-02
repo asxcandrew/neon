@@ -1,26 +1,17 @@
 <template>
   <div id="app">
-    <header class="header">
-      <nav class="inner" role="navigation">
-        <router-link to="/" exact>
-          <img class="logo" src="~assets/logo.png" alt="logo">
-        </router-link>
-        <router-link v-for="(list, key) in feeds" :key="key" :to="`/${key}`">
-          {{ list.title }}
-        </router-link>
-      </nav>
-    </header>
+    <common-header></common-header>
     <nuxt nuxt-child-key="none" role="main" />
     <common-footer></common-footer>
   </div>
 </template>
 
 <script>
-import { feeds } from '~/common/api'
 import CommonFooter from '~/components/footer'
+import CommonHeader from '~/components/header'
 
 export default {
-  components: { CommonFooter },
+  components: { CommonFooter, CommonHeader },
   head() {
     const host = process.server
       ? this.$ssrContext.req.headers.host
@@ -32,9 +23,6 @@ export default {
         { rel: 'canonical', href: `https://${host}${this.$route.path}` }
       ]
     }
-  },
-  computed: {
-    feeds: () => feeds
   }
 }
 </script>

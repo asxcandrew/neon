@@ -20,19 +20,19 @@ export default {
   actions: {
     FETCH_FEED({ commit, state }, { feed, page }) {
       // Don't priorotize already fetched feeds
-      if (state.feeds[feed][page] && state.feeds[feed][page].length) {
-        prefetch = true
-      }
+      // if (state.feeds[feed][page] && state.feeds[feed][page].length) {
+      //   prefetch = true
+      // }
 
       return lazy(
         (data) => {
-          let items = (data.payload || [])
+          let items = data.payload
           const ids = items.map(item => item.id)
           commit('SET_FEED', { feed, ids, page })
           commit('SET_ITEMS', { items })
         },
-        () =>Client.Feed.with(this.$axios).get(feed, page),
-        () =>(state.feeds[feed][page] || []).map(id => state.items[id])
+        () => Client.Feed.with(this.$axios).get(feed, page)
+        // () =>(state.feeds[feed][page] || []).map(id => state.items[id])
       )
     }
   },
