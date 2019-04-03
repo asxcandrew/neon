@@ -13,7 +13,7 @@
     <v-btn icon>
       <v-icon>search</v-icon>
     </v-btn>
-    <v-btn icon>
+    <v-btn v-if="loggedIn" icon>
       <v-icon>bookmark</v-icon>
     </v-btn>
     <v-toolbar-items v-if="loggedIn" class="hidden-sm-and-down">

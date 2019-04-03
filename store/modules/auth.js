@@ -43,7 +43,7 @@ const actions = {
       }
     )
   },
-  SIGN_UP({ commit }, form ) {
+  SIGN_UP({ commit }, {email, username, password} ) {
     return lazy(
       (res) => {
         let data = res.payload;
@@ -51,7 +51,7 @@ const actions = {
           { token: data.token, token_expiration: Date.parse(data.expire), user: data.user }
         );
       },
-      () => Client.Auth.with(this.$axios).register(form)
+      () => Client.Auth.with(this.$axios).register(email, username, password)
     )
   },
   SIGN_OUT({ commit }) {

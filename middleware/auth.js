@@ -1,6 +1,12 @@
 export default ({ store, route, redirect }) => {
-  const meta  = route.meta.find((meta) => {
-    return meta.public
-  }) || {}
-  if (!store.getters.loggedIn && !meta.public) return redirect('/')
+  let pub = false
+  let auth = false
+
+ route.meta.forEach((meta) => {
+  if (!pub) pub = meta.public
+  if (!auth) auth = meta.auth
+ })
+
+  if (!store.getters.loggedIn && !pub) return redirect('/')
+  if (store.getters.loggedIn && auth) return redirect('/')
 }

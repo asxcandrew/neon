@@ -15,7 +15,10 @@ export default {
       { rel: 'preconnect', href: 'https://api.hnpwa.com' }
     ]
   },
-
+  css: [
+    // SCSS file in the project
+    '@/assets/style/main.scss'
+  ],
   loading: {
     color: '#59cc93'
   },
