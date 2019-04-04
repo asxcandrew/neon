@@ -5,7 +5,7 @@
       <v-toolbar-title class="white--text">Neon</v-toolbar-title>
     <!-- </router-link> -->
     <v-toolbar-items class="hidden-sm-and-down">
-      <v-btn v-for="(list, key) in feeds" :key="key" @click.native="$router.push(key)">
+      <v-btn v-for="(list, key) in feeds" :key="key" @click.native="$router.push({ path: `/${key}` })">
         {{ list.title }}
       </v-btn>
     </v-toolbar-items>

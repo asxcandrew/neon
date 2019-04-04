@@ -1,14 +1,14 @@
 <template>
   <div class="user-view view">
     <template v-if="user">
-      <h1>User : {{ user.id }}</h1>
+      <h1>User : {{ user.username }}</h1>
       <lazy-wrapper :loading="user.loading">
         <ul class="meta">
           <li>
-            <span class="label">Created:</span> {{ user.created_time | timeAgo }} ago
+            <span class="label">Created:</span> {{ user.created_at | timeAgo }} ago
           </li>
           <li>
-            <span class="label">Karma:</span> {{ user.karma || '-' }}
+            <span class="label">Karma:</span> {{ user.score || '-' }}
           </li>
           <li v-if="user.about" class="about" v-text="user.about" />
         </ul>
@@ -31,7 +31,9 @@ export default {
   name: 'UserView',
 
   components: { LazyWrapper },
-
+  meta: {
+    public: true
+  },
   computed: {
     user() {
       return this.$store.state.author.authors[this.$route.params.id]
@@ -43,7 +45,7 @@ export default {
   },
 
   fetch({ store, route: { params: { id } } }) {
-    return store.dispatch('FETCH_USER', { id })
+    return store.dispatch('FETCH_AUTHOR', { id })
   }
 }
 </script>

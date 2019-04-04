@@ -18,10 +18,10 @@ export default {
     return state
   },
   getters: {
-    getFeedPage: state => (feed, page) => {
+    getFeedPage: (state, _, rootState) => (feed, page) => {
       let ids = state.feeds[feed][page] || [];
 
-      return ids.map(id => state.item.items[id])
+      return ids.map(id => rootState.item.items[id])
     }
   },
   actions: {

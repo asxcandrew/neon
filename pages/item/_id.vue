@@ -38,7 +38,9 @@ import LazyWrapper from '~/components/lazy-wrapper'
 export default {
   name: 'ItemView',
   components: { Comment, LazyWrapper },
-
+  meta: {
+    public: true
+  },
   head() {
     return {
       title: this.item.title

@@ -7,7 +7,7 @@ export default {
   state: () => {
     const state = {
       authors: {
-        /* [id: string]: User */
+        /* [username: string]: User */
       }
     }
     return state
@@ -15,15 +15,17 @@ export default {
   actions: {
     FETCH_AUTHOR({ state, commit }, { id }) {
       return lazy(
-        user => commit('SET_AUTHOR', { id, user }),
-        () => Client.User.with(this.$axios).get(id),
-        Object.assign({ id, loading: true }, state.users[id])
+        (data) => {
+          let user = data.payload;
+          commit('SET_AUTHOR', { id, user })
+        },
+        () => Client.User.with(this.$axios).get(id)
       )
     }
   },
   mutations: {
     SET_AUTHOR: (state, { id, user }) => {
-      Vue.set(state.users, id, user || false) /* false means user not found */
+      Vue.set(state.authors, id, user || false) /* false means user not found */
     }
   }
 }
