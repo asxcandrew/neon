@@ -6,7 +6,7 @@
       <transition :name="transition" mode="out-in">
         <div :key="displayedPage" class="news-list">
           <transition-group tag="ul" name="item">
-            <item v-for="item in displayedItems" :key="item.id" :item="item" />
+            <item v-for="item in pageData" :key="item.id" :item="item" />
           </transition-group>
         </div>
       </transition>
@@ -16,10 +16,11 @@
 </template>
 
 <script>
-import Item from '~/components/item.vue'
-import ItemListNav from '~/components/item-list-nav.vue'
-import LazyWrapper from '~/components/lazy-wrapper'
-import { feeds, validFeeds } from '~/common/api'
+import Item from '~/components/item.vue';
+import ItemListNav from '~/components/item-list-nav.vue';
+import LazyWrapper from '~/components/lazy-wrapper';
+import { feeds, validFeeds } from '~/common/api';
+import { mapGetters } from 'vuex';
 
 export default {
   components: {
@@ -44,6 +45,9 @@ export default {
   },
 
   computed: {
+    ...mapGetters({
+      getFeedPage: 'getFeedPage',
+    }),
     feed() {
       return this.$route.params.feed
     },
@@ -54,13 +58,10 @@ export default {
       return feeds[this.feed].pages
     },
     pageData() {
-      return this.$store.state.feed.feeds[this.feed][this.page]
-    },
-    displayedItems() {
-      return this.pageData.map(id => this.$store.state.item.items[id])
+      return this.getFeedPage(this.feed, this.page)
     },
     loading() {
-      return this.displayedItems.length === 0
+      return this.pageData.length === 0
     }
   },
 

@@ -17,6 +17,13 @@ export default {
 
     return state
   },
+  getters: {
+    getFeedPage: state => (feed, page) => {
+      let ids = state.feeds[feed][page] || [];
+
+      return ids.map(id => state.item.items[id])
+    }
+  },
   actions: {
     FETCH_FEED({ commit, state }, { feed, page }) {
       // Don't priorotize already fetched feeds
@@ -26,13 +33,14 @@ export default {
 
       return lazy(
         (data) => {
-          let items = data.payload
-          const ids = items.map(item => item.id)
-          commit('SET_FEED', { feed, ids, page })
-          commit('SET_ITEMS', { items })
+          if (data != undefined) {
+            let items = data.payload || []
+            const ids = items.map(item => item.id)
+            commit('SET_FEED', { feed, ids, page })
+            commit('SET_ITEMS', { items })
+          }
         },
         () => Client.Feed.with(this.$axios).get(feed, page)
-        // () =>(state.feeds[feed][page] || []).map(id => state.items[id])
       )
     }
   },

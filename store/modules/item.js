@@ -21,7 +21,6 @@ export default {
           commit('SET_ITEM', { item });
         },
         () => Client.Item.with(this.$axios).get(id)
-        // Object.assign({ id, loading: true, comments: [] }, state.items[id])
       )
     }
   },
