@@ -1,9 +1,14 @@
 <template>
+  <div>  
+  <navigation v-bind:show="showNavigation" @close="showNavigation=false"/>
+
   <v-toolbar dark color="primary">
-    <v-toolbar-side-icon class="hidden-md-and-up"></v-toolbar-side-icon>
-    <!-- <router-link to="/" exact> -->
+    <v-toolbar-side-icon
+      class="hidden-md-and-up"
+      @click.stop="showNavigation = !showNavigation"
+    >
+    </v-toolbar-side-icon>
       <v-toolbar-title class="white--text">Neon</v-toolbar-title>
-    <!-- </router-link> -->
     <v-toolbar-items class="hidden-sm-and-down">
       <v-btn v-for="(list, key) in feeds" :key="key" @click.native="$router.push({ path: `/${key}` })">
         {{ list.title }}
@@ -13,7 +18,7 @@
     <v-btn icon>
       <v-icon>search</v-icon>
     </v-btn>
-    <v-btn v-if="loggedIn" icon>
+    <v-btn v-if="loggedIn" icon class="hidden-sm-and-down">
       <v-icon>bookmark</v-icon>
     </v-btn>
     <v-toolbar-items v-if="loggedIn" class="hidden-sm-and-down">
@@ -23,14 +28,24 @@
       <v-btn flat @click.native="$router.push('login')">Login</v-btn>
     </v-toolbar-items>
   </v-toolbar>
+  </div>
 </template>
 <script>
 import { mapGetters } from 'vuex';
 import { feeds } from '~/common/api';
+import Navigation from './navigation';
 
 export default {
   name: 'common-header',
-    computed: {
+  components: {
+    Navigation
+  },
+  data () {
+    return {
+      showNavigation: false
+    }
+  },
+  computed: {
     ...mapGetters({
       session: 'session',
       loggedIn: 'loggedIn'
