@@ -2,7 +2,7 @@
   <div class="view">
       <v-layout align-center justify-center row fill-height>
         <v-flex xs12 sm12 md9 lg6>
-          <v-card>
+          <v-card v-if="!loading">
             <v-list two-line>
               <template v-for="(item, index) in pageData" transition="slide-x-transition">
                 <v-list-tile class="news-item">
@@ -41,7 +41,7 @@
               </template>
             </v-list>
           </v-card>
-          <template>
+          <template v-if="!loading">
             <div class="text-xs-center">
               <v-pagination
                 v-model="displayedPage"
@@ -53,6 +53,13 @@
               ></v-pagination>
             </div>
           </template>
+            <div class="text-xs-center" v-if="loading">
+              <v-progress-circular
+                :size="50"
+                color="primary"
+                indeterminate
+              ></v-progress-circular>
+            </div>
         </v-flex>
       </v-layout>
   </div>
