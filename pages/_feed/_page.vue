@@ -1,34 +1,68 @@
 <template>
   <div class="view">
-    <item-list-nav :feed="feed" :page="page" :max-page="maxPage" />
-
-    <lazy-wrapper :loading="loading">
-      <transition :name="transition" mode="out-in">
-        <div :key="displayedPage" class="news-list">
-          <transition-group tag="ul" name="item">
-            <item v-for="item in pageData" :key="item.id" :item="item" />
-          </transition-group>
-        </div>
-      </transition>
-      <item-list-nav :feed="feed" :page="page" :max-page="maxPage" />
-    </lazy-wrapper>
+      <v-layout align-center justify-center row fill-height>
+        <v-flex xs12 sm12 md9 lg6>
+          <v-card>
+            <v-list two-line>
+              <template v-for="(item, index) in pageData" transition="slide-x-transition">
+                <v-list-tile class="news-item">
+                  <v-list-tile-action>
+                    <span class="score">{{ item.score }}</span>
+                  </v-list-tile-action>
+                  <v-list-tile-content>
+                    <v-list-tile-title>
+                      <template v-if="item.link">
+                        <a :href="item.link" target="_blank" rel="noopener">{{ item.title }}</a>
+                        <span class="host"> ({{ item.link | host }})</span>
+                      </template>
+                      <template v-else>
+                        <router-link :to="'/item/' + item.id">{{ item.title }}</router-link>
+                      </template>
+                    </v-list-tile-title>
+                    <v-list-tile-sub-title>
+                      <span class="by">
+                        by
+                        <router-link :to="'/user/' + item.author">{{ item.author }}</router-link>
+                      </span>
+                      <span class="time">
+                        {{ item.created_at | timeAgo }} ago
+                      </span>
+                      <span class="comments-link">
+                        |
+                        <router-link :to="'/item/' + item.id">{{ item.comments_count }} comments</router-link>
+                      </span>
+                    </v-list-tile-sub-title>
+                  </v-list-tile-content>
+                </v-list-tile>
+                <v-divider
+                  v-if="index + 1 < pageData.length"
+                  :key="index"
+                ></v-divider>
+              </template>
+            </v-list>
+          </v-card>
+          <template>
+            <div class="text-xs-center">
+              <v-pagination
+                v-model="displayedPage"
+                :value="displayedPage"
+                :length="maxPage"
+                color="blue"
+                :total-visible="5"
+                circle
+              ></v-pagination>
+            </div>
+          </template>
+        </v-flex>
+      </v-layout>
   </div>
 </template>
 
 <script>
-import Item from '~/components/item.vue';
-import ItemListNav from '~/components/item-list-nav.vue';
-import LazyWrapper from '~/components/lazy-wrapper';
 import { feeds, validFeeds } from '~/common/api';
 import { mapGetters } from 'vuex';
 
 export default {
-  components: {
-    Item,
-    ItemListNav,
-    LazyWrapper
-  },
-
   meta: {
     public: true
   },
@@ -58,7 +92,7 @@ export default {
       return feeds[this.feed].pages
     },
     pageData() {
-      return this.getFeedPage(this.feed, this.page)
+      return this.getFeedPage(this.feed, this.displayedPage)
     },
     loading() {
       return this.pageData.length === 0
@@ -66,7 +100,7 @@ export default {
   },
 
   watch: {
-    page: 'pageChanged'
+    displayedPage: 'pageChanged'
   },
 
   fetch({ store, params: { feed, page = 1 } }) {
@@ -93,65 +127,45 @@ export default {
       this.$store
         .dispatch('FETCH_FEED', {
           feed: this.feed,
-          page: this.page
+          page: this.displayedPage
         })
         .catch(() => {})
 
       this.transition =
         from === -1 ? null : to > from ? 'slide-left' : 'slide-right'
-
-      this.displayedPage = to
     }
   }
 }
 </script>
 
 <style lang="stylus">
-.news-list {
-  background-color: #fff;
-  border-radius: 2px;
-}
+.news-item {
+  line-height: 20px;
 
-.news-list {
-  margin: 10px 0;
-  width: 100%;
-  transition: all 0.3s cubic-bezier(0.55, 0, 0.1, 1);
-
-  ul {
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
+  .score {
+    color: #C75000;
+    font-size: 1.1em;
+    font-weight: 700;
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 80px;
+    text-align: center;
+    margin-top: -10px;
   }
-}
 
-.slide-left-enter, .slide-right-leave-to {
-  opacity: 0;
-  transform: translate(30px, 0);
-}
+  .meta, .host {
+    font-size: 0.85em;
+    color: #595959;
 
-.slide-left-leave-to, .slide-right-enter {
-  opacity: 0;
-  transform: translate(-30px, 0);
-}
+    a {
+      color: #595959;
+      text-decoration: underline;
 
-.item-move, .item-enter-active, .item-leave-active {
-  transition: all 0.5s cubic-bezier(0.55, 0, 0.1, 1);
-}
-
-.item-enter {
-  opacity: 0;
-  transform: translate(30px, 0);
-}
-
-.item-leave-active {
-  position: absolute;
-  opacity: 0;
-  transform: translate(30px, 0);
-}
-
-@media (max-width: 600px) {
-  .news-list {
-    margin: 10px 0;
+      &:hover {
+        color: #C75000;
+      }
+    }
   }
 }
 </style>
