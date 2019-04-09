@@ -33,6 +33,7 @@ export default {
 
   modules: [
     '~/modules',
+    'cookie-universal-nuxt',
     ['nuxt-i18n', {
       locales: [
         {
