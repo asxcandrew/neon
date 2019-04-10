@@ -12,7 +12,12 @@ export default {
           "message": "Create an account to personalize your homepage, follow authors and publications.",
           "signInProposal": "Already have an account?",
           "submitButton": "Join"
-      }
+      },
+      "header": {
+        "createItem": "Create item",
+        "logout": "Logout",
+        "settings": "Setting"
+    }
   },
   "form": {
       "email": {

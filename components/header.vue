@@ -22,7 +22,23 @@
       <v-icon>bookmark</v-icon>
     </v-btn>
     <v-toolbar-items v-if="loggedIn" class="hidden-sm-and-down">
-      <v-btn flat >{{ session.user.username }}</v-btn>
+        <v-menu offset-y>
+          <template v-slot:activator="{ on }">
+            <v-btn flat v-on="on">{{ session.user.username }}</v-btn>
+          </template>
+          <v-list>
+            <v-list-tile>
+              <v-list-tile-title>{{ $t("views.header.createItem") }}</v-list-tile-title>
+            </v-list-tile>
+            <v-list-tile>
+              <v-list-tile-title>{{ $t("views.header.settings") }}</v-list-tile-title>
+            </v-list-tile>
+            <v-divider></v-divider>
+            <v-list-tile>
+              <v-list-tile-title @click="logout">{{ $t("views.header.logout") }}</v-list-tile-title>
+            </v-list-tile>
+          </v-list>
+        </v-menu>
     </v-toolbar-items>
     <v-toolbar-items v-else class="hidden-sm-and-down">
       <v-btn flat @click.native="$router.push('login')">Login</v-btn>
@@ -52,6 +68,11 @@ export default {
     }),
     feeds: () => feeds
   },
+  methods: {
+    logout: function() {
+      this.$store.dispatch('SIGN_OUT')
+    },
+  }
 }
 </script>
 <style>

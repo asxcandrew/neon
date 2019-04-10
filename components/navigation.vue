@@ -13,14 +13,12 @@
           <!-- <v-list-tile-avatar>
             <img src="https://randomuser.me/api/portraits/men/85.jpg">
           </v-list-tile-avatar> -->
-
           <v-list-tile-content v-if="loggedIn">
             <v-list-tile-title>{{ session.user.username }}</v-list-tile-title>
           </v-list-tile-content>
           <v-list-tile-content @click.stop="$router.push('login')" v-else>
             <v-list-tile-title >Login</v-list-tile-title>
           </v-list-tile-content>
-
           <v-list-tile-action>
             <v-btn icon @click.stop="emitClose">
               <v-icon>chevron_left</v-icon>
@@ -28,7 +26,19 @@
           </v-list-tile-action>
         </v-list-tile>
       </v-list>
-
+      <v-list class="pt-0" dense v-if="loggedIn">
+        <v-divider light></v-divider>
+        <v-list-tile>
+          <v-list-tile-content>
+            <v-list-tile-title>{{ $t("views.header.createItem") }}</v-list-tile-title>
+          </v-list-tile-content>
+        </v-list-tile>
+        <v-list-tile>
+          <v-list-tile-content>
+            <v-list-tile-title>{{ $t("views.header.settings") }}</v-list-tile-title>
+          </v-list-tile-content>
+        </v-list-tile>
+      </v-list>
       <v-list class="pt-0" dense>
         <v-divider light></v-divider>
         <v-list-tile
@@ -42,6 +52,13 @@
 
           <v-list-tile-content>
             <v-list-tile-title>{{ list.title }}</v-list-tile-title>
+          </v-list-tile-content>
+        </v-list-tile>
+      </v-list>
+      <v-list class="pt-0" dense v-if="loggedIn">
+        <v-list-tile>
+          <v-list-tile-content>
+            <v-list-tile-title @click="logout">{{ $t("views.header.logout") }}</v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
       </v-list>
@@ -67,7 +84,10 @@ export default {
   methods: {
     emitClose: function() {
       this.$emit("close");
-    }
+    },
+    logout: function() {
+      this.$store.dispatch('SIGN_OUT')
+    },
   }
 }
 </script>
