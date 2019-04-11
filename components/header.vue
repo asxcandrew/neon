@@ -27,15 +27,15 @@
             <v-btn flat v-on="on">{{ session.user.username }}</v-btn>
           </template>
           <v-list>
-            <v-list-tile>
+            <v-list-tile @click.native="$router.push({ path: '/item/new' })">
               <v-list-tile-title>{{ $t("views.header.createItem") }}</v-list-tile-title>
             </v-list-tile>
             <v-list-tile>
               <v-list-tile-title>{{ $t("views.header.settings") }}</v-list-tile-title>
             </v-list-tile>
             <v-divider></v-divider>
-            <v-list-tile>
-              <v-list-tile-title @click="logout">{{ $t("views.header.logout") }}</v-list-tile-title>
+            <v-list-tile @click="logout">
+              <v-list-tile-title>{{ $t("views.header.logout") }}</v-list-tile-title>
             </v-list-tile>
           </v-list>
         </v-menu>

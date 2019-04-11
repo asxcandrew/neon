@@ -22,6 +22,15 @@ export default {
         },
         () => Client.Item.with(this.$axios).get(id)
       )
+    },
+    CREATE_ITEM({ commit }, payload) {
+      return lazy(
+        (data) => {
+          let item = data.payload;
+          commit('SET_ITEM', { item });
+        },
+        () => Client.Item.with(this.$axios).post(payload)
+      )
     }
   },
   mutations: {

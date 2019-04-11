@@ -28,7 +28,7 @@
       </v-list>
       <v-list class="pt-0" dense v-if="loggedIn">
         <v-divider light></v-divider>
-        <v-list-tile>
+        <v-list-tile @click.native="$router.push({ path: '/item/new' })">
           <v-list-tile-content>
             <v-list-tile-title>{{ $t("views.header.createItem") }}</v-list-tile-title>
           </v-list-tile-content>
