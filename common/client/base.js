@@ -22,7 +22,7 @@ class BaseResource {
     return this.api.delete(url, options);
   }
   post(options) {
-    const url = `/${this.base}`;
+    const url = `/${this.base}/`;
     return this.api.post(url, options);
   }
   put(id, options) {

@@ -41,7 +41,7 @@
         </v-menu>
     </v-toolbar-items>
     <v-toolbar-items v-else class="hidden-sm-and-down">
-      <v-btn flat @click.native="$router.push('login')">Login</v-btn>
+      <v-btn flat @click.native="$router.push('/login')">Login</v-btn>
     </v-toolbar-items>
   </v-toolbar>
   </div>

@@ -63,7 +63,8 @@ export default {
   ],
 
   plugins: [
-    '~/plugins/filters'
+    '~/plugins/filters',
+    '~/plugins/axios'
   ],
 
   render: {

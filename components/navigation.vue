@@ -16,7 +16,7 @@
           <v-list-tile-content v-if="loggedIn">
             <v-list-tile-title>{{ session.user.username }}</v-list-tile-title>
           </v-list-tile-content>
-          <v-list-tile-content @click.stop="$router.push('login')" v-else>
+          <v-list-tile-content @click.stop="$router.push('/login')" v-else>
             <v-list-tile-title >Login</v-list-tile-title>
           </v-list-tile-content>
           <v-list-tile-action>

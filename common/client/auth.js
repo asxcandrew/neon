@@ -6,7 +6,7 @@ class AuthResource extends BaseResource {
 
     return this.api.$post(url, {email: email, password: password});
   };
-  register(email, password, username){
+  register(email, username, password){
     const url = `/${this.base}/register`;
   
     return this.api.$post(url,

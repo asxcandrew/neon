@@ -4,34 +4,27 @@
       <v-flex xs12 md6 offset-sm3>
         <v-card class="view-block">
            <v-card-title primary-title>
-          <span class="title headline">{{ $t("views.login.title") }}</span>
-          <span class="grey--text">{{ $t("views.login.message") }}</span>
+          <span class="title headline">{{ $t("views.newItem.title") }}</span>
         </v-card-title>
     <form class="auth-form">
       <v-text-field
         v-model.trim="title"
-        :label="$t('form.email.name')"
+        :label="$t('form.title.name')"
       ></v-text-field>
       <v-text-field
         v-model.trim="link"
-        :label="$t('form.email.name')"
+        :label="$t('form.link.name')"
       ></v-text-field>
-      <v-text-field
+      <v-textarea
         v-model.trim="html_body"
-        :label="$t('form.email.name')"
-      ></v-text-field>
+        :label="$t('form.body.name')"
+      ></v-textarea>
     </form>
       <v-card-actions>
         <v-spacer></v-spacer>
-        <v-btn flat color="blue" @click="onSubmit">{{$t('views.login.submitButton')}}</v-btn>
+        <v-btn flat color="blue" @click="onSubmit">{{$t('views.newItem.submitButton')}}</v-btn>
       </v-card-actions>
       </v-card>
-      <p class="auth-info">
-        {{ $t("views.login.signUpProposal") }}
-        <router-link to="/register">
-          {{ $t("views.login.signUpButton") }}
-        </router-link>
-      </p>
     </v-flex>
   </v-layout>
   </div>
@@ -58,7 +51,7 @@ export default {
   },
   head() {
     return {
-      title: "this.item.title"
+      title: this.$t("views.newItem.title")
     }
   }
 }

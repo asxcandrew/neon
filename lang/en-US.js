@@ -17,9 +17,23 @@ export default {
         "createItem": "Create item",
         "logout": "Logout",
         "settings": "Setting"
-    }
+      },
+      "newItem": {
+        "title": "Create new post",
+        "submitButton": "Publish"
+      }
   },
   "form": {
+      "title": {
+        "name": "Title",
+        "required": "Please input title"
+      },
+      "link": {
+        "name": "Link"
+      },
+      "body": {
+        "name": "Message"
+      },
       "email": {
         "name": "Email",
         "required": "Please input email",

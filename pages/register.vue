@@ -104,12 +104,17 @@ export default {
     }),
   methods: {
     onSubmit() {
+      let self = this;
+
       if (!this.$v.$invalid) {
         this.$store
           .dispatch('SIGN_UP', {
             email: this.email,
             username: this.username,
             password: this.password
+          })
+          .then(() => {
+            self.$router.push({ path: '/' })
           })
           .catch(() => {})
       }

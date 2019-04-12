@@ -66,11 +66,16 @@ export default {
     }),
   methods: {
     onSubmit() {
+      let self = this;
+
       if (!this.$v.$invalid) {
         this.$store
           .dispatch('SIGN_IN', {
             email: this.email,
             password: this.password
+          })
+          .then(() => {
+            self.$router.push({ path: '/' })
           })
           .catch(() => {})
       }
