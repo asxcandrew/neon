@@ -33,6 +33,11 @@
                       </span>
                     </v-list-tile-sub-title>
                   </v-list-tile-content>
+                  <v-list-tile-action>
+                    <v-btn icon ripple @click="addToBookmarks(item)">
+                      <v-icon color="grey lighten-1">bookmark</v-icon>
+                    </v-btn>
+                  </v-list-tile-action>
                 </v-list-tile>
                 <v-divider
                   v-if="index + 1 < pageData.length"
@@ -88,6 +93,7 @@ export default {
   computed: {
     ...mapGetters({
       getFeedPage: 'getFeedPage',
+      loggedIn: 'loggedIn'
     }),
     feed() {
       return this.$route.params.feed
@@ -125,6 +131,11 @@ export default {
   },
 
   methods: {
+    addToBookmarks(item){
+      let comment = ""
+      this.$store
+        .dispatch('CREATE_BOOKMARK', {item, comment})
+    },
     pageChanged(to, from = -1) {
       if (to < 0 || to > this.maxPage) {
         this.$router.replace(`/${this.feed}/1`)
