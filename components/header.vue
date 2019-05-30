@@ -27,7 +27,7 @@
             <v-btn flat v-on="on">{{ session.user.username }}</v-btn>
           </template>
           <v-list>
-            <v-list-tile @click.native="$router.push({ path: '/item/new' })">
+            <v-list-tile @click="$router.push({ path: '/item/new' })">
               <v-list-tile-title>{{ $t("views.header.createItem") }}</v-list-tile-title>
             </v-list-tile>
             <v-list-tile>

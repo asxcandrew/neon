@@ -14,11 +14,12 @@ export default {
   },
 
   actions: {
-    FETCH_ITEM({ commit, state }, { id }) {
+    FETCH_ITEM({ commit }, { id }) {
       return lazy(
         (data) => {
           let item = data.payload;
           commit('SET_ITEM', { item });
+          return item;
         },
         () => Client.Item.with(this.$axios).get(id)
       )
@@ -28,6 +29,7 @@ export default {
         (data) => {
           let item = data.payload;
           commit('SET_ITEM', { item });
+          return item;
         },
         () => Client.Item.with(this.$axios).post(payload)
       )

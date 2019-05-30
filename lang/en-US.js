@@ -16,7 +16,7 @@ export default {
       "header": {
         "createItem": "Create item",
         "logout": "Logout",
-        "settings": "Setting"
+        "settings": "Settings"
       },
       "newItem": {
         "title": "Create new post",

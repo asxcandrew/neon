@@ -23,7 +23,7 @@ class BaseResource {
   }
   post(options) {
     const url = `/${this.base}/`;
-    return this.api.post(url, options);
+    return this.api.$post(url, options);
   }
   put(id, options) {
     const url = `/${this.base}/${id}`;

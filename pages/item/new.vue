@@ -41,12 +41,14 @@ export default {
   methods: {
     onSubmit(){
       this.$store
-          .dispatch('CREATE_ITEM', {
-            link: this.link,
-            html_body: this.html_body,
-            title: this.title,
-            type: "story"
-          })
+        .dispatch('CREATE_ITEM', {
+          link: this.link,
+          html_body: this.html_body,
+          title: this.title,
+          type: "story"
+        }).then((item)=>{
+          this.$router.push({ path: `/item/${item.id}` })
+        })
     }
   },
   head() {
