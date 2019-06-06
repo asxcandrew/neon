@@ -10,7 +10,7 @@ export default {
       { property: 'twitter:site', content: '@nuxt_js' }
     ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+      { rel: 'icon', type: 'image/svg', href: '/logo.svg' },
       { rel: 'dns-prefetch', href: 'https://api.hnpwa.com' },
       { rel: 'preconnect', href: 'https://api.hnpwa.com' }
     ]

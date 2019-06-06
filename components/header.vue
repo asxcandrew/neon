@@ -10,7 +10,7 @@
       @click.stop="showNavigation = !showNavigation"
     >
     </v-toolbar-side-icon>
-    <v-toolbar-title >Neon</v-toolbar-title>
+    <v-toolbar-title class="logo hidden-sm-and-down"></v-toolbar-title>
       <v-toolbar-title v-for="(list, key) in feeds" :key="key" class="hidden-sm-and-down">
         <router-link :to="`/${key}`">
           {{ list.title }}
@@ -87,12 +87,19 @@ export default {
 </script>
 <style lang="scss">
 .v-toolbar{
+  .logo {
+      mask-image: url("/logo.svg");
+      mask-repeat: no-repeat;
+      height: 90%;
+      background: white;
+      width: 3em;
+  }
   &.theme--gradient{
     background: -moz-linear-gradient(left, #3a4eff 0%, #c532ff 100%); /* FF3.6-15 */
     background: -webkit-linear-gradient(left, #3a4eff 0%,#c532ff 100%); /* Chrome10-25,Safari5.1-6 */
     background: linear-gradient(to right, #3a4eff 0%,#c532ff 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
     color: white;
-    .v-icon, a{
+    .v-icon, .v-toolbar__title>a{
       color: white;
     }
   }
