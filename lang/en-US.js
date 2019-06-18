@@ -21,6 +21,10 @@ export default {
       "newItem": {
         "title": "Create new post",
         "submitButton": "Publish"
+      },
+      "settings": {
+        "title": "Settings",
+        "submitButton": "Save"
       }
   },
   "form": {
@@ -43,6 +47,10 @@ export default {
         "name": "Enter your name",
         "required": "Please input your name",
         "length": "Length should be from {min} to {max}"
+      },
+      "about": {
+        "name": "About you",
+        "length": "Length should be less then {max} symbols."
       },
       "password": {
         "name": "Password",

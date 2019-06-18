@@ -34,7 +34,7 @@
           </v-list-tile-content>
         </v-list-tile>
         <v-list-tile>
-          <v-list-tile-content>
+          <v-list-tile-content @click.native="$router.push({ path: '/user/settings' })">
             <v-list-tile-title>{{ $t("views.header.settings") }}</v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>

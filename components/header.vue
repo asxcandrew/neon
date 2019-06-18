@@ -39,7 +39,7 @@
           <v-list-tile @click="$router.push({ path: '/item/new' })">
             <v-list-tile-title>{{ $t("views.header.createItem") }}</v-list-tile-title>
           </v-list-tile>
-          <v-list-tile>
+          <v-list-tile @click="$router.push({ path: '/user/settings' })">
             <v-list-tile-title>{{ $t("views.header.settings") }}</v-list-tile-title>
           </v-list-tile>
           <v-divider></v-divider>
