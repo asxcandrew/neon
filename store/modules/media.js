@@ -14,7 +14,7 @@ export default {
     UPLOAD_MEDIA({ commit }, file ) {
       Client.Media.with(this.$axios).presignedURL(file.type)
         .then((res) => {
-          Client.Media.with(this.$axios).uploadFile(res.data.upload_url, file)
+          Client.Media.with(this.$axios).uploadFile(res.payload.url, file)
         })
     }
   }
