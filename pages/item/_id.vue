@@ -19,6 +19,7 @@
       </p>
     </div>
     <div class="item-view-comments">
+      <comment-form :ancestor="item"/>
       <!-- <lazy-wrapper :loading="item.loading">
         <p class="item-view-comments-header">
           {{ item.comments ? item.comments.length + ' comments' : 'No comments yet.' }}
@@ -33,11 +34,12 @@
 
 <script>
 import Comment from '~/components/comment.vue'
+import CommentForm from '~/components/comment-form.vue'
 import LazyWrapper from '~/components/lazy-wrapper'
 
 export default {
   name: 'ItemView',
-  components: { Comment, LazyWrapper },
+  components: { Comment, LazyWrapper, CommentForm },
   meta: {
     public: true
   },

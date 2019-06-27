@@ -48,6 +48,22 @@ export default {
       return (async () => {
         commit('DESTROY_SESSION');
       })();
+    },
+    UPDATE_USER({ commit, state }, { about, media_id } ) {
+      return lazy(
+        (res) => {
+          let data = res.payload;
+          commit('CHANGE_SESSION',
+            { user: data.user }
+          );
+        },
+        () => Client.User.with(this.$axios).put(
+          state.session.user.username,
+          {
+            about: about,
+            media_id: media_id
+          })
+      )
     }
   },
   mutations: {

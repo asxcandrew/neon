@@ -2,12 +2,20 @@ import { BaseResource } from './base';
 
 class MediaResource extends BaseResource {
   presignedURL(type) {
-    let url = `/${this.base}/`;
+    let url = `/${this.base}`;
 
-    return this.api.$post(url, {params: {content_type: type}});
+    return this.api.$post(
+      url,
+        {
+          params: {
+            content_type: type
+          }
+        }
+      );
   }
   uploadFile(url, file){
-    return this.api.$put(url,
+    return this.api.$put(
+      url,
       file,
       {
         headers: {
