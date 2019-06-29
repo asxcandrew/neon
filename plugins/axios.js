@@ -1,5 +1,7 @@
 export default function ({ $axios, store }) {
     $axios.onRequest((config) => {
-         config.headers.common['Authorization'] = `Bearer ${store.state.auth.session.token}`;
+        if(!config.url.startsWith('http')) {
+            config.headers.common['Authorization'] = `Bearer ${store.state.auth.session.token}`;
+        }
     })
 }
